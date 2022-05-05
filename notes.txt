@@ -1,0 +1,10 @@
+https://icons.getbootstrap.com/icons/suit-spade/
+
+https://icons.getbootstrap.com/icons/suit-diamond/
+
+https://icons.getbootstrap.com/icons/suit-heart/
+
+https://icons.getbootstrap.com/icons/suit-club/
+
+font-awesome:
+<script src="https://kit.fontawesome.com/b9b618023e.js" crossorigin="anonymous"></script>
