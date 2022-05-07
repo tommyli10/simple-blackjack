@@ -31,7 +31,7 @@
         <div class="container-md">
             <a class="navbar-brand" href="#">
                 <img src="assets/suit-spade-fill.svg" alt="">
-                Blackjack
+                Simple-Blackjack
             </a>
         </div>
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarCollapse">
@@ -43,7 +43,7 @@
     </nav>
 
     <!-- Dealer stage -->
-    <section id="dealer" class="container-md border border border-primary py-0">
+    <section id="dealer" class="container-md py-0">
         <div class="row m-4 mb-0 d-flex justify-content-center"></div>
         <div class="mask win">
             <h1>DEALER WIN!</h1>
@@ -54,23 +54,20 @@
     </section>
 
     <!-- Game Control and Info stage -->
-    <section class="container-md border border-primary">
+    <section class="container-md border border border-3 rounded-3">
         <div id="stage" class="row">
-            <div
-                class="col-4 border border-primary d-flex flex-column justify-content-between fw-bold my-5">
+            <div class="col-4 d-flex flex-column justify-content-between fw-bold my-5">
                 <h2 id="dealerScore" class="fs-3">Dealer Count: <span></span></h2>
                 <h2 id="playerScore" class="fs-3">Player Count: <span></span></h2>
             </div>
-            <div id="nextRound"
-                class="col-4 border border-primary d-flex justify-content-around align-self-center my-4">
+            <div id="nextRound" class="col-4 d-flex justify-content-around align-self-center my-4">
                 <!-- card info for maintainance purposes -->
                 <!-- <h3 id="currentCard">Current card is: <span></span></h3> -->
                 <!-- <h3 id="currentCard">Current card is: <span></span></h3> -->
                 <!-- <h3 id="cardCount">Cards remaining: <span></span></h3> -->
                 <button type="button" class="btn btn-success px-0 fw-bold">Next Round</button>
             </div>
-            <div
-                class="col-4 border border-primary d-flex justify-content-around align-self-center my-4">
+            <div class="col-4 d-flex justify-content-around align-self-center my-4">
                 <button id="hit" type="button" class="btn btn-success px-4 fw-bold">Hit
                     Me</button>
                 <button id="stand" type="button" class="btn btn-warning px-4 fw-bold">Stand</button>
@@ -81,7 +78,7 @@
     </section>
 
     <!-- Player stage -->
-    <section id="player" class="container-md border border border-primary px-0 py-0">
+    <section id="player" class="container-md px-0 py-0">
         <div class="row m-4 d-flex justify-content-center" id="stack"></div>
         <div class="mask win">
             <h1>YOU WIN!</h1>

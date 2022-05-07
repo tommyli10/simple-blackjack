@@ -110,6 +110,7 @@ let dealerAces = 0;
 // let numberValues = { 'A': 11, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10 }
 let numberValues = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 
+// reset for each new round without calling a new deck
 const resetBoard = () => {
     dealer.innerHTML = '';
     player.innerHTML = '';
@@ -124,8 +125,11 @@ const resetBoard = () => {
     nextRound.style.display = 'none';
     playerAces = 0;
     dealerAces = 0;
+    hit.removeAttribute('disabled');
+    stand.removeAttribute('disabled');
 }
 
+// when new game or round starts, draws two cards for player and one card for dealer
 const start = async (firstRound) => {
     resetBoard();
     if (firstRound) await makeNewDeck();
@@ -139,6 +143,7 @@ const start = async (firstRound) => {
 
 const newRound = () => {
     resetBoard();
+    // when a new round starts, start()'s argument needs to be false so a new deck is not drawn
     start(false);
     console.log(id);
 }
@@ -164,13 +169,9 @@ const drawPlayer = async () => {
     }
     playerScore.innerText = display;
     if (display == 21) {
-        playerWin.style.display = 'flex';
-        dealerLose.style.display = 'flex';
-        nextRound.style.display = 'flex';
+        youWon();
     } else if (display > 21) {
-        playerLose.style.display = 'flex';
-        dealerWin.style.display = 'flex';
-        nextRound.style.display = 'flex';
+        youLost();
     }
 }
 
@@ -202,7 +203,9 @@ const fold = async () => {
     const backsideCard = dealer.querySelector('#backside');
     backsideCard.style.display = 'none';
 
+    // player count
     let p = parseInt(playerScore.innerText);
+    // dealer count
     let d = parseInt(dealerScore.innerText);
     // console.log(`dealerCount: ${d}`);
     // console.log(`playerCount: ${p}`);
@@ -211,14 +214,26 @@ const fold = async () => {
         d = parseInt(dealerScore.innerText);
     }
     if (d > 21) {
-        playerWin.style.display = 'flex';
-        dealerLose.style.display = 'flex';
-        nextRound.style.display = 'flex';
+        youWon();
     } else {
-        playerLose.style.display = 'flex';
-        dealerWin.style.display = 'flex';
-        nextRound.style.display = 'flex';
+        youLost();
     }
+}
+
+const youWon = () => {
+    playerWin.style.display = 'flex';
+    dealerLose.style.display = 'flex';
+    nextRound.style.display = 'inline-block';
+    hit.setAttribute('disabled', true);
+    stand.setAttribute('disabled', true);
+}
+
+const youLost = () => {
+    playerLose.style.display = 'flex';
+    dealerWin.style.display = 'flex';
+    nextRound.style.display = 'inline-block';
+    hit.setAttribute('disabled', true);
+    stand.setAttribute('disabled', true);
 }
 
 newGame.addEventListener('click', start)
