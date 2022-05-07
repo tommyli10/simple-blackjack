@@ -23,62 +23,97 @@
     <!-- Axios Library -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- Card Suits SVG -->
-    <script type="text/javascript" src="scripts/r.js"></script>
-
     <title>Black Jack!!!</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-transparent fixed py-0">
+    <nav class="navbar navbar-expand-md navbar-light bg-transparent sticky-top mx-5 mt-2">
         <div class="container-md">
             <a class="navbar-brand" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-suit-spade" viewBox="0 0 16 16">
-                    <path
-                        d="M8 0a.5.5 0 0 1 .429.243c1.359 2.265 2.925 3.682 4.25 4.882.096.086.19.17.282.255C14.308 6.604 15.5 7.747 15.5 9.5a4 4 0 0 1-5.406 3.746c.235.39.491.782.722 1.131.434.659-.01 1.623-.856 1.623H6.04c-.845 0-1.29-.964-.856-1.623.263-.397.51-.777.728-1.134A4 4 0 0 1 .5 9.5c0-1.753 1.192-2.896 2.539-4.12l.281-.255c1.326-1.2 2.892-2.617 4.251-4.882A.5.5 0 0 1 8 0zM3.711 6.12C2.308 7.396 1.5 8.253 1.5 9.5a3 3 0 0 0 5.275 1.956.5.5 0 0 1 .868.43c-.094.438-.33.932-.611 1.428a29.247 29.247 0 0 1-1.013 1.614.03.03 0 0 0-.005.018.074.074 0 0 0 .024.054h3.924a.074.074 0 0 0 .024-.054.03.03 0 0 0-.005-.018c-.3-.455-.658-1.005-.96-1.535-.294-.514-.57-1.064-.664-1.507a.5.5 0 0 1 .868-.43A3 3 0 0 0 14.5 9.5c0-1.247-.808-2.104-2.211-3.38L12 5.86c-1.196-1.084-2.668-2.416-4-4.424-1.332 2.008-2.804 3.34-4 4.422l-.289.261z" />
-                </svg>
+                <img src="assets/suit-spade-fill.svg" alt="">
                 Blackjack
             </a>
         </div>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarCollapse">
+            <form class="form-inline ml-auto">
+                <button type="button" id="newGame" class="btn btn-secondary fw-bold px-4">New
+                    Game</button>
+            </form>
+        </div>
     </nav>
 
-    <section id="stage" class="container-md border border-primary px-0">
-        <h1>Hello test</h1>
-        <input type="number" min="1" max="6" value="1">
-        <button id="create">Create Deck</button>
-
-        <button id="hit">Hit Me</button>
-        <h3 id="deckID">Deck ID is: <span></span></h3>
-        <h3 id="cardCount">Cards remaining: <span></span></h3>
-        <h3 id="currentCard">Current card is: <span></span></h3>
+    <!-- Dealer stage -->
+    <section id="dealer" class="container-md border border border-primary py-0">
+        <div class="row m-4 mb-0 d-flex justify-content-center"></div>
+        <div class="mask win">
+            <h1>DEALER WIN!</h1>
+        </div>
+        <div class="mask lose">
+            <h1>DEALER LOSE!</h1>
+        </div>
     </section>
 
+    <!-- Game Control and Info stage -->
+    <section class="container-md border border-primary">
+        <div id="stage" class="row">
+            <div
+                class="col-4 border border-primary d-flex flex-column justify-content-between fw-bold my-5">
+                <h2 id="dealerScore" class="fs-3">Dealer Count: <span></span></h2>
+                <h2 id="playerScore" class="fs-3">Player Count: <span></span></h2>
+            </div>
+            <div id="nextRound"
+                class="col-4 border border-primary d-flex justify-content-around align-self-center my-4">
+                <!-- card info for maintainance purposes -->
+                <!-- <h3 id="currentCard">Current card is: <span></span></h3> -->
+                <!-- <h3 id="currentCard">Current card is: <span></span></h3> -->
+                <!-- <h3 id="cardCount">Cards remaining: <span></span></h3> -->
+                <button type="button" class="btn btn-success px-0 fw-bold">Next Round</button>
+            </div>
+            <div
+                class="col-4 border border-primary d-flex justify-content-around align-self-center my-4">
+                <button id="hit" type="button" class="btn btn-success px-4 fw-bold">Hit
+                    Me</button>
+                <button id="stand" type="button" class="btn btn-warning px-4 fw-bold">Stand</button>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- Player stage -->
+    <section id="player" class="container-md border border border-primary px-0 py-0">
+        <div class="row m-4 d-flex justify-content-center" id="stack"></div>
+        <div class="mask win">
+            <h1>YOU WIN!</h1>
+        </div>
+        <div class="mask lose">
+            <h1>YOU LOSE!</h1>
+        </div>
+    </section>
+
+
+    <!-- -------------------------------------------------------------------------------------
+    DON'T TOUCH!!!!!!
+    This is a card template that will be duplicated in main.js when a new card is drawn
+    ------------------------------------------------------------------------------------- -->
     <div class="card" id="template">
-        <div>
+        <div class="topLeft">
             <h4>A</h4>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-suit-spade" viewBox="0 0 16 16">
-                <path
-                    d="M8 0a.5.5 0 0 1 .429.243c1.359 2.265 2.925 3.682 4.25 4.882.096.086.19.17.282.255C14.308 6.604 15.5 7.747 15.5 9.5a4 4 0 0 1-5.406 3.746c.235.39.491.782.722 1.131.434.659-.01 1.623-.856 1.623H6.04c-.845 0-1.29-.964-.856-1.623.263-.397.51-.777.728-1.134A4 4 0 0 1 .5 9.5c0-1.753 1.192-2.896 2.539-4.12l.281-.255c1.326-1.2 2.892-2.617 4.251-4.882A.5.5 0 0 1 8 0zM3.711 6.12C2.308 7.396 1.5 8.253 1.5 9.5a3 3 0 0 0 5.275 1.956.5.5 0 0 1 .868.43c-.094.438-.33.932-.611 1.428a29.247 29.247 0 0 1-1.013 1.614.03.03 0 0 0-.005.018.074.074 0 0 0 .024.054h3.924a.074.074 0 0 0 .024-.054.03.03 0 0 0-.005-.018c-.3-.455-.658-1.005-.96-1.535-.294-.514-.57-1.064-.664-1.507a.5.5 0 0 1 .868-.43A3 3 0 0 0 14.5 9.5c0-1.247-.808-2.104-2.211-3.38L12 5.86c-1.196-1.084-2.668-2.416-4-4.424-1.332 2.008-2.804 3.34-4 4.422l-.289.261z" />
-            </svg>
+            <img src="assets/suit-spade-fill.svg" alt="">
         </div>
         <div class="suit">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-suit-spade" viewBox="0 0 16 16">
-                <path
-                    d="M8 0a.5.5 0 0 1 .429.243c1.359 2.265 2.925 3.682 4.25 4.882.096.086.19.17.282.255C14.308 6.604 15.5 7.747 15.5 9.5a4 4 0 0 1-5.406 3.746c.235.39.491.782.722 1.131.434.659-.01 1.623-.856 1.623H6.04c-.845 0-1.29-.964-.856-1.623.263-.397.51-.777.728-1.134A4 4 0 0 1 .5 9.5c0-1.753 1.192-2.896 2.539-4.12l.281-.255c1.326-1.2 2.892-2.617 4.251-4.882A.5.5 0 0 1 8 0zM3.711 6.12C2.308 7.396 1.5 8.253 1.5 9.5a3 3 0 0 0 5.275 1.956.5.5 0 0 1 .868.43c-.094.438-.33.932-.611 1.428a29.247 29.247 0 0 1-1.013 1.614.03.03 0 0 0-.005.018.074.074 0 0 0 .024.054h3.924a.074.074 0 0 0 .024-.054.03.03 0 0 0-.005-.018c-.3-.455-.658-1.005-.96-1.535-.294-.514-.57-1.064-.664-1.507a.5.5 0 0 1 .868-.43A3 3 0 0 0 14.5 9.5c0-1.247-.808-2.104-2.211-3.38L12 5.86c-1.196-1.084-2.668-2.416-4-4.424-1.332 2.008-2.804 3.34-4 4.422l-.289.261z" />
-            </svg>
+            <img src="assets/suit-spade-fill.svg" alt="">
         </div>
         <div class="flipped">
             <h4>A</h4>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-suit-spade" viewBox="0 0 16 16">
-                <path
-                    d="M8 0a.5.5 0 0 1 .429.243c1.359 2.265 2.925 3.682 4.25 4.882.096.086.19.17.282.255C14.308 6.604 15.5 7.747 15.5 9.5a4 4 0 0 1-5.406 3.746c.235.39.491.782.722 1.131.434.659-.01 1.623-.856 1.623H6.04c-.845 0-1.29-.964-.856-1.623.263-.397.51-.777.728-1.134A4 4 0 0 1 .5 9.5c0-1.753 1.192-2.896 2.539-4.12l.281-.255c1.326-1.2 2.892-2.617 4.251-4.882A.5.5 0 0 1 8 0zM3.711 6.12C2.308 7.396 1.5 8.253 1.5 9.5a3 3 0 0 0 5.275 1.956.5.5 0 0 1 .868.43c-.094.438-.33.932-.611 1.428a29.247 29.247 0 0 1-1.013 1.614.03.03 0 0 0-.005.018.074.074 0 0 0 .024.054h3.924a.074.074 0 0 0 .024-.054.03.03 0 0 0-.005-.018c-.3-.455-.658-1.005-.96-1.535-.294-.514-.57-1.064-.664-1.507a.5.5 0 0 1 .868-.43A3 3 0 0 0 14.5 9.5c0-1.247-.808-2.104-2.211-3.38L12 5.86c-1.196-1.084-2.668-2.416-4-4.424-1.332 2.008-2.804 3.34-4 4.422l-.289.261z" />
-            </svg>
+            <img src="assets/suit-spade-fill.svg" alt="">
         </div>
     </div>
+
+    <div class="card" id="backside">
+        <div></div>
+    </div>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
