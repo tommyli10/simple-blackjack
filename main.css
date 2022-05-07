@@ -1,5 +1,5 @@
 body {
-    background-color: #c7c7bb;
+    background-color: #d0cec8;
     color: #262626;
     font-family: 'Roboto', sans-serif;
 }
@@ -85,11 +85,6 @@ custom card style - this can be done using bootstrap but doing this in CSS gives
     transform: rotate(13deg);
 }
 
-.win,
-.lose {
-    display: none;
-}
-
 h1 {
     display: inline-block;
     font-size: 100px;
@@ -97,6 +92,16 @@ h1 {
     border: 6px solid #a6513e;
     border-radius: 15px;
 
+}
+
+.win,
+.lose {
+    display: none;
+}
+
+.win h1 {
+    color: #a4a382;
+    border: 6px solid #a4a382;
 }
 
 #nextRound button {
