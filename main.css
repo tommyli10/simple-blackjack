@@ -124,3 +124,7 @@ h1 {
 #stage div:last-child {
     height: 40px;
 }
+
+#hitStand button {
+    display: none;
+}

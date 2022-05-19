@@ -16,7 +16,6 @@ const makeNewDeck = async () => {
         // change this value for choose how many deck of cards you want 
         let count = 6;
         const url = `https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=${count}`;
-
         const res = await axios.get(url);
         id = res.data.deck_id;
         deckID.textContent = id;
@@ -125,6 +124,8 @@ const resetBoard = () => {
     nextRound.style.display = 'none';
     playerAces = 0;
     dealerAces = 0;
+    hit.style.display = 'flex';
+    stand.style.display = 'flex';
     hit.removeAttribute('disabled');
     stand.removeAttribute('disabled');
 }
